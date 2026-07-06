@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Customer Requests</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#4facfe,#00c6fb,#43e97b);
+    min-height:100vh;
+    padding:40px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    background:#fff;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:30px;
+    color:#333;
+    font-size:34px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    border-radius:12px;
+}
+
+thead{
+    background:#2196f3;
+    color:white;
+}
+
+th{
+    padding:18px;
+    text-align:left;
+    font-size:16px;
+}
+
+td{
+    padding:16px;
+    border-bottom:1px solid #ddd;
+    color:#444;
+}
+
+tbody tr:nth-child(even){
+    background:#f7f9fc;
+}
+
+tbody tr:hover{
+    background:#eaf5ff;
+    transition:.3s;
+}
+
+.status{
+    padding:8px 14px;
+    border-radius:20px;
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+    display:inline-block;
+}
+
+/* Status Colors */
+
+.pending{
+    background:#ff9800;
+}
+
+.completed{
+    background:#4caf50;
+}
+
+.inprogress{
+    background:#2196f3;
+}
+
+.cancelled{
+    background:#e53935;
+}
+
+.empty{
+    text-align:center;
+    color:#888;
+    font-size:18px;
+    padding:30px;
+}
+
+@media(max-width:900px){
+
+body{
+    padding:20px;
+}
+
+.container{
+    overflow-x:auto;
+}
+
+table{
+    min-width:900px;
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>📋 Customer Service Requests</h2>
+
+<table>
+
+<thead>
+
+<tr>
+    <th>👤 Customer</th>
+    <th>🛠 Issue</th>
+    <th>📝 Description</th>
+    <th>📍 Location</th>
+    <th>📌 Status</th>
+    <th>📅 Date</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for i in x %}
+
+<tr>
+
+<td>{{ i.customer_name }}</td>
+
+<td>{{ i.issue }}</td>
+
+<td>{{ i.Description }}</td>
+
+<td>{{ i.location }}</td>
+
+<td>
+
+<span class="
+{% if i.status == 'Pending' %}
+pending
+{% elif i.status == 'Completed' %}
+completed
+{% elif i.status == 'In Progress' %}
+inprogress
+{% elif i.status == 'Cancelled' %}
+cancelled
+{% else %}
+pending
+{% endif %}
+status">
+
+{{ i.status }}
+
+</span>
+
+</td>
+
+<td>{{ i.created_at }}</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="6" class="empty">
+No Service Requests Found 🚫
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</body>
+</html>

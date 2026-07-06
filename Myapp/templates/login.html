@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(135deg,#4facfe,#00f2fe);
+        }
+
+        .login-container{
+            background:#fff;
+            width:370px;
+            padding:40px;
+            border-radius:15px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .login-container h2{
+            text-align:center;
+            margin-bottom:30px;
+            color:#333;
+        }
+
+        label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:bold;
+            color:#555;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            margin-bottom:20px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            outline:none;
+            transition:.3s;
+            font-size:15px;
+        }
+
+        input:focus{
+            border-color:#4facfe;
+            box-shadow:0 0 8px rgba(79,172,254,.4);
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            border:none;
+            background:#4facfe;
+            color:white;
+            font-size:16px;
+            border-radius:8px;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        button:hover{
+            background:#1d8df5;
+        }
+
+        .register{
+            margin-top:20px;
+            text-align:center;
+            color:#555;
+        }
+
+        .register a{
+            text-decoration:none;
+            color:#4facfe;
+            font-weight:bold;
+        }
+
+        .register a:hover{
+            text-decoration:underline;
+        }
+
+        .message{
+            margin-top:15px;
+            padding:10px;
+            border-radius:6px;
+            background:#ffe6e6;
+            color:red;
+            text-align:center;
+        }
+
+        @media(max-width:420px){
+            .login-container{
+                width:90%;
+                padding:30px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="login-container">
+
+    <h2>Welcome</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter Username">
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter Password">
+
+        <button type="submit">Login</button>
+
+    </form>
+
+    <div class="register">
+        Don't have an account?
+        <a href="{% url 'signup' %}">Register Here</a>
+    </div>
+
+    {% for message in messages %}
+        <div class="message">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
