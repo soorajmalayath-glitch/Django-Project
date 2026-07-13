@@ -6,6 +6,8 @@ from .models import CustomUser,Userservicerequest
 from .forms import Customregisterform,servicerequest_form
 from django.http import HttpResponse
 from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib import messages
 
 
 # Create your views here.
@@ -38,8 +40,6 @@ def login_view(request):
           
     return render(request, 'login.html')
     
-from django.shortcuts import render, redirect
-from django.contrib import messages
 
 def signup_view(request):
     if request.method == "POST":
@@ -79,22 +79,23 @@ def ServiceRequest(request):
              
         return redirect('success')
         
-        # return HttpResponse('Data Added')
+        return HttpResponse('Data Added')
     else:
         obj = servicerequest_form()
     return render(request,'service.html',{'x':obj})    
 
 def customerserviceview(request):
-    service = Userservicerequest.objects.all()
+    service = Userservicerequest.objects.all().order_by('-id')
     return render(request,'userservice.html',{'x':service})
 
 @login_required
 def worker_dashboard(request):
     service = Userservicerequest.objects.filter(
-        assigned_worker=request.user,status__in=['pending','In progress'])
+        assigned_worker=request.user,status__in=['pending','in-progress'])
     if not service.exists():
         messages.success(request,"Good Job !! No Pending request")
         return render(request,'worker_service.html')
+    
     
     return render(request,'worker_service.html',{'x':service})
 
